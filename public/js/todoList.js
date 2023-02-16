@@ -32,6 +32,7 @@ function addTaskInList() {
                     timer: 1500,
                 });
                 showTodoListOnLoad();
+                $("#taskValue").val("");
             }
         })
         .catch((err) => {

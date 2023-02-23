@@ -1,5 +1,8 @@
 $(function () {
     showTodoListOnLoad();
+    // Echo.channel("add-todo").listen("addNewTodo", function (e) {
+    //     console.log(e);
+    // });
 });
 
 let todoTable = $("#todoListTable").DataTable({

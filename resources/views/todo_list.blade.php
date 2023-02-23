@@ -37,6 +37,8 @@
 
 @yield('content')
 <script src="js/todoList.js"></script>
+<script src="{{ asset('js/notification.js')}}"></script>
+
 <script>
     var link = {
         add_task : '{{route('add_task')}}',

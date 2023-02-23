@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\addNewTodo;
 use App\Models\todoList;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -20,6 +22,11 @@ class todoController extends Controller
         ];
 
         todoList::create($todoArr);
+
+        $title = "New Task Added";
+        $body = $this->getUserName() . " Added a Task in Todo List";
+
+        event(new addNewTodo($authId, $title, $body));
 
         return response()->json(['status' => 'success', 'message' => 'Task Added Successfully']);
     }
@@ -50,5 +57,10 @@ class todoController extends Controller
         $authId = Auth::id();
         todoList::where(['id' => $request->id, 'created_by' => $authId])->update(['is_done' => 0]);
         return response()->json(['status' => 'success', 'message' => 'Task Is Not Closed']);
+    }
+
+    public function getUserName()
+    {
+        return User::where('id', Auth::id())->value('name');
     }
 }
